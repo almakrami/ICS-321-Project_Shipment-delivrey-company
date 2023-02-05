@@ -1,0 +1,5 @@
+# Ignore artifacts:
+views/partials/
+
+# prettier-ignore
+*.ejs

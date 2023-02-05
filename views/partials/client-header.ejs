@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Client Home Page</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark mb-3">
+      <div class="container-fluid">
+        <a class="navbar-brand text-warning" href="/client-home-page">Client</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo02"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/client-home-page"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/client-packages">My packages</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/client-profile">My profile</a>
+              </li>
+          </ul>
+          <div class="nav align-items-center">
+            <li class="nav-item align-middle">
+              <button type="button" class="btn btn-warning position-relative" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                <i class="bi bi-bell-fill"></i>
+                <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                >
+                  <%= unpaidPackages.length %>
+                  <span class="visually-hidden">unread messages</span>
+                </span>
+              </button>
+
+              
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link text-warning dropdown-toggle"
+                data-bs-toggle="dropdown"
+                href="#"
+                role="button"
+                aria-expanded="false"
+                ><i class="bi bi-gear"></i
+              ></a>
+              <ul class="dropdown-menu setting-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li>
+                  <a class="dropdown-item" href="/client-profile">My Profile</a>
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item text-danger" href="/">Log out<i class="bi bi-box-arrow-right  ms-1"></i></a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link text-warning"
+                href="#"
+                role="button"
+                aria-expanded="false"
+                ><img
+                  src="https://github.com/mdo.png"
+                  class="rounded-circle admin-img me-2"
+                  alt=""
+                />
+                <%= clientInfo[0].c_fname + " " + clientInfo[0].c_lname %></a>
+            </li>
+          </div>
+          
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Notifications</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="row mb-3">
+          <div class="col">
+            
+              <form action="/client-home-page" method="post">
+                <% unpaidPackages.forEach((record) => { %>
+                    <div class="shadow rounded p-3 text-center m-3">
+                      <h5>New Order added (Order ID   <strong><%= "#" + record.package_id + ")" %></strong></h5>
+                      <p>Do you want to pay?</p>
+                      <button class="btn btn-success" formaction="/client-home-page?confirm=<%= record.package_id %>" type="submit"><i class="bi bi-check-lg pe-2"></i>Pay</button>
+                      <button class="btn btn-danger" formaction="/client-home-page?cancel=<%= record.package_id %>" type="submit"><i class="bi bi-x-lg pe-2"></i>Cancel</button>
+                    </div>
+    
+                  <% }) %>
+                
+              </form>
+            
+          </div>
+          
+        </div>
+        
+        
+      </div>
+    </div>
